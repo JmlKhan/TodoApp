@@ -86,6 +86,20 @@ namespace TodoAPP.Controllers
             return Ok(todo);
         }
 
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Todo>> DeleteTodo(int id)
+        {
+            var todo = await  _context.Todos.FindAsync(id);
+            if (todo == null)
+            {
+                return NotFound();
+            }
+            _context.Todos.Remove(todo);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
         private bool TodoExist(int id)
         {
             return _context.Todos.Any(e => e.Id == id);
