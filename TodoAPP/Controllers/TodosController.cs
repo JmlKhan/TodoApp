@@ -39,5 +39,22 @@ namespace TodoAPP.Controllers
             }
             
         }
+
+        [HttpPost]
+        public async Task<ActionResult<Todo>> PostTodo([FromBody] Todo todo)
+        {
+            try
+            {
+                _context.Todos.Add(todo);
+                await _context.SaveChangesAsync();
+
+                return CreatedAtAction("GetTodo", new { id = todo.Id }, todo);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
