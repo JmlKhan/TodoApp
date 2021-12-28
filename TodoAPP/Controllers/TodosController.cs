@@ -56,5 +56,39 @@ namespace TodoAPP.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Todo>> EditTodo(int id, Todo todo)
+        {
+            if( id != todo.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(todo).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!TodoExist(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+                
+            }
+            return Ok(todo);
+        }
+
+        private bool TodoExist(int id)
+        {
+            return _context.Todos.Any(e => e.Id == id);
+        }
     }
 }
