@@ -10,7 +10,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<TodoContext>(opt =>
 {
     opt.UseSqlServer(connectionString);
-})
+});
 
 
 builder.Services.AddControllers();
