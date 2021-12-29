@@ -16,7 +16,7 @@ namespace TodoAPP.Controllers
 
 
         // GET: TodosController
-        [HttpGet]
+        [HttpGet("get-all-todos")]
         public async Task<ActionResult<IEnumerable<Todo>>> GetTodos()
         {
             var todos = await _context.Todos.ToListAsync();
@@ -40,7 +40,7 @@ namespace TodoAPP.Controllers
             
         }
 
-        [HttpPost]
+        [HttpPost("create-todo")]
         public async Task<ActionResult<Todo>> PostTodo([FromBody] Todo todo)
         {
             try
