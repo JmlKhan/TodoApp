@@ -14,6 +14,18 @@ namespace TodoAPP.Controllers
             _context = context;
         }
 
+        [HttpGet("test")]
+        public IActionResult test()
+        {
+            var t = new Todo()
+            {
+                Id = 1,
+                Title = "Test1",
+                Completed = false,
+            };
+
+            return Ok(t);
+        }
 
         // GET: TodosController
         [HttpGet("get-all-todos")]
